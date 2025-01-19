@@ -1,15 +1,12 @@
-# Uncomment the line below if on Linux
-# #!usr/bin/env python3
+# #!/usr/bin/env python3
+# Uncomment the line above if on Linux
 
 # Requests library for API access
 import requests
 
-# Time library for polling API
-import time
-
 # Change this to reflect your UGC code
 # You can find this on the National Weather Service's website or Google
-zone = ""
+zone = "CAC037"
 
 # Function to fetch weather alerts from the NWS API
 def fetch_nws_alerts():
@@ -41,30 +38,16 @@ def extract_alert_types(alerts):
 
 # Main function
 def main():
-    seen_alerts = set()  # Track alerts that have already been displayed
-    no_alerts_printed = False  # Flag to prevent repeated "No alerts" messages
-    polling_interval = 5  # Poll every 5 seconds
+    # Fetch alerts from the NWS API
+    alerts = fetch_nws_alerts()
+    alert_types = extract_alert_types(alerts)
 
-    while True:
-        # Fetch alerts from the NWS API
-        alerts = fetch_nws_alerts()
-        alert_types = extract_alert_types(alerts)
-
-        # Process new alerts
+    # Process and display alerts
+    if alert_types:
         for alert_type in alert_types:
-            if alert_type not in seen_alerts:
-                # Print the alert message if it's new
-                print(f"WX Alert: {alert_type}. Take precautions now!")
-                seen_alerts.add(alert_type)
-                no_alerts_printed = False  # Reset flag since there are new alerts
-
-        # If no alerts and "No alerts" message hasn't been printed recently
-        if not alert_types and not no_alerts_printed:
-            print("No active weather alerts found.")
-            no_alerts_printed = True  # Prevent repeated "No alerts" messages
-
-        # Wait for the polling interval before the next API request
-        time.sleep(polling_interval)
+            print(f"WX Alert: {alert_type}. Take precautions now!")
+    else:
+        print("No active weather alerts found.")
 
 if __name__ == "__main__":
     main()
