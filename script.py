@@ -6,7 +6,7 @@ import requests
 
 # Change this to reflect your UGC code
 # You can find this on the National Weather Service's website or Google
-zone = "CAC037"
+zone = ""
 
 # Function to fetch weather alerts from the NWS API
 def fetch_nws_alerts():
