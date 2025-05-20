@@ -1,9 +1,6 @@
 # Code written by Owen Graham, KE0SBX
 # This script can be injected directly into the direwolf.conf file
 
-# #!/usr/bin/env python3
-# Uncomment the shebang line above if on Direwolf Linux
-
 # Requests library for API access
 import requests
 
